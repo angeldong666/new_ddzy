@@ -3,6 +3,8 @@
     <div class="sideb flex-left">
         <div class="item" v-for="(item,index) in iconList" :key="index" @click="showList(index)">
             <img :src="item.img" :alt="item.name">
+            <div v-if="chickInfo && chickInfo.hasfood == 1 && index == 0" class="item-icon">待领</div>
+            <div v-if="chickInfo && chickInfo.hasprop == 1 && index == 1" class="item-icon">待领</div>
         </div>
     </div>
 </template>
@@ -10,32 +12,26 @@
 <script>
     export default {
         name: 'sideb',
-        props: ['showList'],
+        props: ['showList', 'chickInfo'],
         data() {
             return {
                 iconList: [{
-                    name: '好友',
-                    img: 'http://download.pceggs.com:8080/xjyx/egg/img/t-you.png',
+                    name: '领饲料',
+                    img: 'http://xjccfile.pceggs.com:8080/xjyx/egg/img2/icon-lingsiliao.png',
                     img2: '',
                     id: 0,
                 }, {
-                    name: '领饲料',
-                    img: 'http://download.pceggs.com:8080/xjyx/egg/img/t-ling.png',
+                    name: '领道具',
+                    img: 'http://xjccfile.pceggs.com:8080/xjyx/egg/img2/icon-daoju.png',
                     img2: '',
                     id: 1,
                 }, {
-                    name: '动态',
-                    img: 'http://download.pceggs.com:8080/xjyx/egg/img/t-dongtai.png',
+                    name: '玩游戏',
+                    img: 'http://xjccfile.pceggs.com:8080/xjyx/egg/img2/icon-wyx.png',
                     img2: '',
                     id: 2,
                 }],
             }
-        },
-        mounted() {
-
-        },
-        methods: {
-
         },
     }
 </script>
@@ -59,6 +55,18 @@
             img {
                 width: 100%;
                 height: auto;
+            }
+
+            .item-icon {
+                position: absolute;
+                top: 0;
+                right: -.2rem;
+                color: #fff;
+                background: #F90627;
+                padding: 1px .1rem;
+                font-size: .2rem;
+                border-radius: .2rem;
+                border-bottom-left-radius: 0;
             }
         }
     }

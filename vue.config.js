@@ -21,7 +21,7 @@ module.exports = {
             filename: 'index.html',
             // 当使用 title 选项时，
             // template 中的 title 标签需要是 <title><%= htmlWebpackPlugin.options.title %></title>
-            title: 'game',
+            title: '蛋蛋庄园',
             // 在这个页面中包含的块，默认情况下会包含
             // 提取出来的通用 chunk 和 vendor chunk。
             // chunks: ['chunk-vendors', 'chunk-common', 'index']
@@ -53,9 +53,9 @@ module.exports = {
     },
     lintOnSave: false,
     // publicPath: process.env.NODE_ENV === 'production' ?
-    //     'http://download.pceggs.com:8080/xjyx/game_cc/' : '/',
-    publicPath: process.env.NODE_ENV === 'production' ?
-        'http://download.pceggs.com:8080/xjyx/egg/js/' : '/',
+    //     'http://xjccfile.pceggs.com:8080/xjyx/game_cc/' : '/',
+    publicPath: isProduction ?
+        'http://xjccfile.pceggs.com:8080/xjyx/egg/js/' : '/',
     devServer: {
         open: true, // 是否自动打开浏览器页面
         host: '192.168.2.162', // 默认是 localhost

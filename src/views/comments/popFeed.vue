@@ -20,7 +20,7 @@
         data() {
             return {
                 txt: '<p>欢迎加入蛋蛋庄园</p><p>新人获得<font color="#FFF04B">100g饲料</font></p>',
-                imgs: 'http://download.pceggs.com:8080/xjyx/egg/img/s1.png'
+                imgs: 'http://xjccfile.pceggs.com:8080/xjyx/egg/img/s1.png'
             }
         },
         mounted() {
@@ -69,7 +69,7 @@
             .feed-btn {
                 width: 4.29rem;
                 height: 1.26rem;
-                background: url(http://download.pceggs.com:8080/xjyx/egg/img/b6.png) no-repeat;
+                background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/b6.png) no-repeat;
                 background-size: 100% 100%;
                 margin: 1rem auto 0;
             }
@@ -77,7 +77,7 @@
             .feed-close {
                 width: .6rem;
                 height: .6rem;
-                background: url(http://download.pceggs.com:8080/xjyx/egg/img/close.png) no-repeat;
+                background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/close.png) no-repeat;
                 background-size: 100% 100%;
                 position: absolute;
                 top: -.6rem;

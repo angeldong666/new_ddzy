@@ -30,7 +30,7 @@
     .avatar {
         width: 3.61rem;
         height: 1.2rem;
-        background: url(http://download.pceggs.com:8080/xjyx/egg/img/m1.png) no-repeat;
+        background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/m1.png) no-repeat;
         background-size: 100% auto;
         position: fixed;
         top: 1rem;

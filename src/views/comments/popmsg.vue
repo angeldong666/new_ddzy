@@ -40,13 +40,13 @@
         .pop-cont {
             width: 6.28rem;
             min-height: 4.72rem;
-            background: url(http://download.pceggs.com:8080/xjyx/egg/img/p1.png) no-repeat;
+            background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/p1.png) no-repeat;
             background-size: 100% 100%;
 
             .pop-title {
                 width: 4.23rem;
                 height: 1.71rem;
-                background: url(http://download.pceggs.com:8080/xjyx/egg/img/t1.png) no-repeat;
+                background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/t1.png) no-repeat;
                 background-size: 100% 100%;
                 top: -.4rem;
                 font-size: .35rem;
@@ -73,7 +73,7 @@
                 position: absolute;
                 width: .91rem;
                 height: .97rem;
-                background: url(http://download.pceggs.com:8080/xjyx/egg/img/w7.png) no-repeat;
+                background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/w7.png) no-repeat;
                 background-size: 100% auto;
                 top: -.2rem;
                 right: 0;

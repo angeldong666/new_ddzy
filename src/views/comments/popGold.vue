@@ -17,7 +17,7 @@
         props: ['reciveEgg'],
         data() {
             return {
-                img: 'http://download.pceggs.com:8080/xjyx/egg/img/w9.png'
+                img: 'http://xjccfile.pceggs.com:8080/xjyx/egg/img/w9.png'
             }
         },
         mounted() {

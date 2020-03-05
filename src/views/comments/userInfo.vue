@@ -1,8 +1,8 @@
 <template>
     <!-- 任务列表 -->
-    <div class="fixed userinfo" @click.stop="_selfClose()">
-        <div :class="'list-cont userinfo-cont center '+ (popUp?'list-pop-up':'list-pop-down')" @click.stop>
-            <div class="list-title userinfo-title center">小鸡档案</div>
+    <div class="fixed2 userinfo" @click.stop="_selfClose()">
+        <div class="list-cont userinfo-cont center" @click.stop>
+            <div class="list-title userinfo-title">小鸡档案</div>
             <div class="list-list userinfo-list center" v-if="closeList.userInfos">
                 <div class="u-content">
                     <div class="u-item u-name flex-left">
@@ -35,6 +35,7 @@
                         <div class="u-exp-right">{{closeList.userInfos.experience}}/{{closeList.userInfos.nextexp}}
                         </div>
                     </div>
+                    <div class="next-lel">{{closeList.userInfos.nexttitle}}</div>
                     <div class="u-imgs">
                         <img :src="closeList.userInfos.imgurl" alt="">
                     </div>
@@ -51,14 +52,7 @@
         name: '',
         props: ['closeList'],
         data() {
-            return {
-                popUp: false,
-            }
-        },
-        watch: {
-            'closeList.userShow': function () {
-                this.popUp = this.closeList.userShow;
-            }
+            return {}
         },
         mounted() {
 
@@ -66,11 +60,7 @@
         methods: {
             _selfClose: function () {
                 let that = this;
-                that.popUp = false;
-                let times = setTimeout(() => {
-                    that.closeList._closeList();
-                    clearTimeout(times)
-                }, 600);
+                that.closeList._closeList();
             },
             _fullNumber2: function (min, max) {
                 let num = parseInt(min / max * 100);
@@ -81,21 +71,14 @@
     }
 </script>
 
-
 <style lang='scss' scoped>
     .userinfo {
         .userinfo-list {
-            width: 5.6rem;
-            padding: 0;
             color: #6F4818;
             font-size: .26rem;
 
             .u-content {
                 width: 100%;
-                height: 5.8rem;
-                background: #F9D6A3;
-                box-shadow: 0px 3px 0px 0px #E9C38B inset;
-                border-radius: .2rem;
                 padding: .3rem .3rem 0;
             }
 
@@ -144,14 +127,21 @@
                 }
             }
 
+            .next-lel {
+                color: #B8884E;
+                font-size: .22rem;
+                text-align: center;
+            }
+
             .u-imgs {
                 width: 1.84rem;
                 height: 2.72rem;
                 position: absolute;
                 top: .5rem;
                 right: .3rem;
-                img{
-                    width:100%;
+
+                img {
+                    width: 100%;
                     height: auto;
                 }
             }

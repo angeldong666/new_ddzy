@@ -1,7 +1,7 @@
 <template>
-    <div class="twrap">
-        <div class="toast center2" v-show="visible" v-html="message"></div>
-    </div>
+    <!-- <div class="twrap"> -->
+    <div class="toast center2" v-show="visible" v-html="message"></div>
+    <!-- </div> -->
 </template>
 
 <script>
@@ -45,17 +45,17 @@
 </script>
 
 <style lang="scss" scoped>
-    .twrap {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        z-index: 999;
-        top: 0;
-        left: 0;
-    }
+    // .twrap {
+    //     position: fixed;
+    //     width: 100%;
+    //     height: 100%;
+    //     z-index: 999;
+    //     top: 0;
+    //     left: 0;
+    // }
 
     .toast {
-        // position: fixed;
+        position: fixed;
         font-size: .28rem;
         line-height: .45rem;
         padding: .2rem .3rem;

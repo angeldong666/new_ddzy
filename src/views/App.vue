@@ -35,15 +35,9 @@
 			let that = this;
 			// 获取	基础信息
 			that.baseInfo.userid = document.getElementById('userid').value;
-			that.baseInfo.deviceid = document.getElementById('deviceid').value;
-			that.baseInfo.ptype = document.getElementById('ptype').value;
-			that.baseInfo.unix = document.getElementById('unix').value;
-			that.baseInfo.token = document.getElementById('token').value;
-			that.baseInfo.keycode = document.getElementById('keycode').value;
 
 			let uids = document.getElementById('testuid').value;
 			that.isTest = uids.indexOf(that.baseInfo.userid) != -1 ? true : false;
-
 		},
 		methods: {
 			_clearUserInfo: function () {
@@ -115,7 +109,7 @@
 			.nav-left {
 				width: $nav;
 				height: 100%;
-				background: url(http://download.pceggs.com:8080/xjyx/egg/img/j3.png) no-repeat center;
+				background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/j3.png) no-repeat center;
 				background-size: 30% auto;
 			}
 
@@ -153,138 +147,87 @@
 		top: 0;
 		left: 0;
 	}
+	.fixed2 {
+		position: fixed;
+		width: 100vw;
+		height: 100vh;
+		// background: rgba(0, 0, 0, 0.8);
+		z-index: 100;
+		top: 0;
+		left: 0;
+	}
+
+	.fixedall {
+		position: fixed;
+		width: 100vw;
+		height: 100vh;
+		background: rgba(0, 0, 0, 0.8);
+		z-index: 99;
+		top: 0;
+		left: 0;
+	}
 
 	.list-cont {
-		width: 6.7rem;
-		height: 10.99rem;
-		background: url(http://download.pceggs.com:8080/xjyx/egg/img/list.png) no-repeat;
+		width: 6.8rem;
+		height: 8.41rem;
+		background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img2/bg-tanchuang.png) no-repeat;
 		background-size: 100% auto;
-		-webkit-backface-visibility: hidden;
-		-moz-backface-visibility: hidden;
-		-ms-backface-visibility: hidden;
-		backface-visibility: hidden;
-
-		-webkit-perspective: 1000;
-		-moz-perspective: 1000;
-		-ms-perspective: 1000;
-		perspective: 1000;
+		padding: .5rem .3rem 0;
+		bottom: 0;
 	}
 
 	.list-title {
-		position: absolute;
-		top: 1.8rem;
-		width: 3.41rem;
-		height: .63rem;
+		width: 2.71rem;
+		height: .64rem;
 		line-height: .63rem;
 		font-weight: bold;
 		color: #FCF7E6;
 		font-size: .35rem;
 		text-align: center;
+		margin: 0 auto;
+		background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img2/bg-tantit.png) no-repeat;
+		background-size: 100% auto;
 	}
 
 	.list-list {
 		position: absolute;
-		width: 6.3rem;
-		height: 6.8rem;
-		top: 2.9rem;
-		padding: 0 .35rem 0;
+		bottom: 0;
+		width: calc(100% - 0.6rem);
+		height: 7rem;
+		padding: 0 .3rem;
+		background: #FFEFD8;
+		border-top-left-radius: .2rem;
+		border-top-right-radius: .2rem;
+	}
+
+	.list-scroll {
 		overflow-y: scroll;
 		-webkit-overflow-scrolling: touch;
+	}
+
+	.list-scroll::-webkit-scrollbar {
+		display: none
 	}
 
 	.list-close {
 		position: absolute;
 		width: .91rem;
 		height: .97rem;
-		background: url(http://download.pceggs.com:8080/xjyx/egg/img/w7.png) no-repeat;
+		background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/w7.png) no-repeat;
 		background-size: 100% auto;
-		top: 1.3rem;
+		top: -.2rem;
 		right: -.2rem;
 	}
 
-	.list-pop-up {
-		animation: popUp .5s;
-		-webkit-animation: popUp .5s;
-		top: 0;
+	.pull-up-enter-active,
+	.pull-up-leave-active {
+		transition: all .6s;
+		transform: translateY(0);
 	}
 
-	.list-pop-down {
-		animation: popDown .5s;
-		-webkit-animation: popDown .5s;
-		top: -100%;
-	}
-
-	@keyframes popUp {
-		from {
-			top: -100%;
-		}
-
-		to {
-			top: 0;
-		}
-	}
-
-	@-webkit-keyframes popUp {
-		from {
-			top: -100%;
-		}
-
-		to {
-			top: 0;
-		}
-	}
-
-	@keyframes popDown {
-		from {
-			top: 0;
-		}
-
-		to {
-			top: -100%;
-		}
-	}
-
-	@-webkit-keyframes popDown {
-		from {
-			top: 0;
-		}
-
-		to {
-			top: -100%;
-		}
-	}
-
-	.egg-recived {
-		animation: lines 1s infinite;
-		-webkit-animation: lines 1s infinite;
-	}
-
-	@keyframes lines {
-		0% {
-			box-shadow: 0 0 10px 10px yellow;
-		}
-
-		50% {
-			box-shadow: 0 0 20px 10px yellow;
-		}
-
-		100% {
-			box-shadow: 0 0 10px 10px yellow;
-		}
-	}
-
-	@-webkit-keyframes lines {
-		0% {
-			box-shadow: 0 0 10px 10px yellow;
-		}
-
-		50% {
-			box-shadow: 0 0 20px 10px yellow;
-		}
-
-		100% {
-			box-shadow: 0 0 10px 10px yellow;
-		}
+	.pull-up-enter,
+	.pull-up-leave-active {
+		transform: translateY(100%);
 	}
 
 	.msg-container {

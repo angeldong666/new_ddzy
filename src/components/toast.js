@@ -4,7 +4,6 @@ import Toast from '@/components/toast.vue'
 let ToastConstructor = Vue.extend(Toast) // 构造函数
 let instance // 实例对象
 let seed = 1 // 计数
-
 const ToastDialog = (options = {}) => {
     if (typeof options === 'string') {
         options = {

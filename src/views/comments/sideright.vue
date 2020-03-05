@@ -14,18 +14,18 @@
         data() {
             return {
                 iconList: [{
-                    name: '商店',
-                    img: 'http://download.pceggs.com:8080/xjyx/egg/img/t-shop.png',
+                    name: '动态',
+                    img: 'http://xjccfile.pceggs.com:8080/xjyx/egg/img2/icon-dongtai.png',
                     img2: '',
                     id: 0,
                 }, {
-                    name: '装扮',
-                    img: 'http://download.pceggs.com:8080/xjyx/egg/img/t-zhuang.png',
+                    name: '排行',
+                    img: 'http://xjccfile.pceggs.com:8080/xjyx/egg/img2/icon-paihang.png',
                     img2: '',
                     id: 1,
                 }, {
-                    name: '游戏',
-                    img: 'http://download.pceggs.com:8080/xjyx/egg/img/t-game.png',
+                    name: '抽奖',
+                    img: 'http://xjccfile.pceggs.com:8080/xjyx/egg/img2/icon-cj.png',
                     img2: '',
                     id: 2,
                 }],

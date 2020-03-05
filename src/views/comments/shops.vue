@@ -112,7 +112,7 @@
 <style lang='scss' scoped>
     .shops {
         .shops-cont {
-            background: url(http://download.pceggs.com:8080/xjyx/egg/img/shop_bg1.png) no-repeat;
+            background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/shop_bg1.png) no-repeat;
             background-size: 100% auto;
 
             .shops-title {
@@ -175,7 +175,7 @@
                         color: #fff;
                         font-size: .22rem;
                         border-radius: .24rem;
-                        background: #E19F63 url(http://download.pceggs.com:8080/xjyx/egg/img/shop_gold_bg1.png) no-repeat left center;
+                        background: #E19F63 url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/shop_gold_bg1.png) no-repeat left center;
                         background-size: auto 100%;
                         margin-bottom: .2rem;
                     }

@@ -2,7 +2,7 @@
     <!-- 主页 -->
     <div class="home">
         <Avatar :user-info="{chickInfo,_showList}"></Avatar>
-        <SideLeft v-if="chickInfo"></SideLeft>
+        <!-- <SideLeft v-if="chickInfo"></SideLeft> -->
         <SideRight v-if="chickInfo" :right-data="{_sideRight}"></SideRight>
         <!-- 主体 -->
         <div class="content center">
@@ -10,15 +10,15 @@
             <div class="content-div" v-if="!layeggShow && newUser">
                 <div class="content-wrap content-none">
                     <img v-for="(item,index) in speedImgsLength" :key="index" v-show="newImagesShow == (index + 1)"
-                        :src="'http://download.pceggs.com:8080/xjyx/egg/newgold/'+(index+1)+'.png'" alt="">
+                        :src="'http://xjccfile.pceggs.com:8080/xjyx/egg/newgold/'+(index+1)+'.png'" alt="">
                 </div>
                 <div class="content-btn scale-box" @click="_setChickName()"></div>
             </div>
             <!-- 鸡 -->
             <div class="content-div" v-if="!layeggShow && !newUser">
                 <div class="content-wrap content-right" @click="_toFeed('touch')">
-                    <img v-for="(item,index) in speedImgsLength" :key="index" v-show="newImagesShow == (index + 1)"
-                        :src="speedImageName +(index+1)+'.png'" alt="">
+                    <img v-for="(item,index) in speedImgsLength" :key="index" class="center"
+                        v-show="newImagesShow == (index + 1)" :src="speedImageName +(index+1)+'.png'" alt="">
                 </div>
             </div>
             <!-- 下蛋过程 -->
@@ -49,18 +49,23 @@
             </div>
         </div>
         <!-- 饲料 -->
-        <div :class="'feed ' + (foodSide?'feed-side-act':'feed-side-hide')" v-if="!newUser && chickInfo && foodInfo"
-            @click="_changeFeedAct()">
-            <!-- 饲料列表 -->
-            <div :class="'feed-cont '+('feed-cont'+item.foodtype)" v-show="foodSide" v-for="(item,index) in foodInfo"
-                :key="index" @click="_feeding(item.foodtype,item.total,false)">
-                <div class="stroke feed-re-num">{{item.total || 0}}g</div>
+        <div :class="'feed feed-side ' + (foodSide?'feed-side-act':'feed-side-hide')"
+            v-if="!newUser && chickInfo && foodInfo" @click="_changeFeedAct(foodSide)">
+            <!-- 饲料列表v-show="foodSide" -->
+            <div class="feed-wrap">
+                <div :class="(foodSide?'feed-wrap-cont':'feed-wrap-cont2')">
+                    <div class="feed-cont" v-for="(item,index) in foodInfo" :key="index"
+                        @click="_feeding(item.foodtype,item.total)">
+                        <div class="feed-re-img"><img :src="item.img" alt=""></div>
+                        <div class="stroke feed-re-num">{{item.total || 0}}g</div>
+                    </div>
+                </div>
             </div>
             <!-- 当前饲料 -->
-            <div :class="'feed-cont '+(foodInfo.length>1?('feed-cont'+foodInfo[1].foodtype):('feed-cont'+foodInfo[0].foodtype))"
+            <!-- <div :class="'feed-cont '+(foodInfo.length>1?('feed-cont'+foodInfo[1].foodtype):('feed-cont'+foodInfo[0].foodtype))"
                 v-show="!foodSide">
                 <div class="stroke feed-re-num">{{foodInfo.length>1?(foodInfo[1].total):(foodInfo[0].total)}}g</div>
-            </div>
+            </div> -->
 
             <div class="feed-weight feed-weishi" v-show="!feedTimeShow"></div>
             <div class="feed-weight feed-time" v-if="feedTimeShow">
@@ -70,16 +75,32 @@
         </div>
         <!-- 点击攻略 -->
         <div class="raider-click" @click="_closeRaider"></div>
-        <SideBottom v-show="!newUser && chickInfo" :show-list="_showList"></SideBottom>
-        <!-- 任务列表 -->
-        <TaskList v-show="taskShow" :close-list="{_closeList,taskShow,taskList,_taskGoldData,_shopMethods}"></TaskList>
+        <SideBottom v-show="!newUser && chickInfo" :show-list="_showList" :chick-info="chickInfo"></SideBottom>
+        <!-- 饲料任务列表 -->
+        <transition name="pull-up">
+            <TaskList v-show="feedShow" :data="{_closeList,feedShow,taskFeedList,_taskButtonMethods,_shopMethods}"
+                @_appShareMethods="_appShareMethods">
+            </TaskList>
+        </transition>
+        <!-- 道具任务列表 -->
+        <transition name="pull-up">
+            <PropList v-show="propShow" :data="{_closeList,propShow,taskPropList,_taskButtonMethods,_shopMethods}"
+                @_appShareMethods="_appShareMethods">
+            </PropList>
+        </transition>
         <!-- 排行榜 -->
-        <RankList v-show="rankShow" :close-list="{_closeList,rankShow,rankList}" :uid='baseInfo.userid'
-            :rank="rankList"></RankList>
+        <transition name="pull-up">
+            <RankList v-show="rankShow" :close-list="{_closeList,rankShow,rankList}" :uid='baseInfo.userid'
+                :rank="rankList"></RankList>
+        </transition>
         <!-- 动态 -->
-        <LogList v-show="logShow" :close-list="{_closeList,logShow,logList}"></LogList>
+        <transition name="pull-up">
+            <LogList v-show="logShow" :close-list="{_closeList,logShow,logList}"></LogList>
+        </transition>
         <!-- 个人信息 -->
-        <UserInfo v-show="userShow" :close-list="{_closeList,userShow,userInfos}"></UserInfo>
+        <transition name="pull-up">
+            <UserInfo v-show="userShow" :close-list="{_closeList,userShow,userInfos}"></UserInfo>
+        </transition>
         <!-- 弹窗(取名) -->
         <Pop v-if="setNameShow" :set-name="{_changeName,_closePop,popType,popDleve,popTitle,popccMsg}"></Pop>
         <!-- 弹窗(饲料) -->
@@ -87,13 +108,16 @@
         <!-- 弹窗(金蛋) -->
         <PopGold v-if="reciveGoldShow" :recive-egg="{reciveGoldShow,reciveGoldMsg,_closeRecivePop}"></PopGold>
         <!-- 商店 -->
-        <Shops v-show="shopsShow" :close-list="{_closeList,shopsShow,shopList,_shopMethods}"></Shops>
+        <!-- <Shops v-show="shopsShow" :close-list="{_closeList,shopsShow,shopList,_shopMethods}"></Shops> -->
         <!-- 新手引导 -->
         <newGuide :guide-data="{guideData,_changeGuideIndex}" v-show="newGuideShow"></newGuide>
         <!-- 攻略 -->
         <!-- <Raiders :raider="_closeRaider" v-show="raiderShow"></Raiders> -->
         <!-- 弹窗(更新信息) -->
-        <popMsg v-if="msgData.show" :msg-data="msgData" @_closePopShow="_closePopShow" @_gotoGamecc="_gotoGamecc"></popMsg>
+        <popMsg v-if="msgData.show" :msg-data="msgData" @_closePopShow="_closePopShow" @_gotoGamecc="_gotoGamecc">
+        </popMsg>
+
+        <div class="fixedall" v-show="allpopShow"></div>
 
     </div>
 </template>
@@ -101,26 +125,24 @@
 <script>
     import Qs from 'qs'
     import Avatar from './comments/avatar'
-    import SideLeft from './comments/sideleft'
     import SideRight from './comments/sideright'
     import SideBottom from './comments/sidebottom'
     import Pop from './comments/pop'
     import PopFeed from './comments/popFeed'
     import PopGold from './comments/popGold'
-    import TaskList from './comments/tasklist'
+    import TaskList from './comments/feedList'
+    import PropList from './comments/propList'
     import RankList from './comments/ranklist'
     import LogList from './comments/loglist'
     import newGuide from './comments/newGuide'
     import UserInfo from './comments/userInfo'
-    import Shops from './comments/shops'
+    // import Shops from './comments/shops'
     import popMsg from './comments/popmsg'
-    // import Raiders from './comments/raiders'
     export default {
         name: 'home',
         props: [],
         components: {
             Avatar,
-            SideLeft,
             SideRight,
             SideBottom,
             Pop,
@@ -131,20 +153,22 @@
             LogList,
             newGuide,
             UserInfo,
-            // Raiders,
-            Shops,
+            PropList,
+            // Shops,
             popMsg
         },
         data() {
             return {
                 baseInfo: {},
-                taskShow: false,
+                feedShow: false,
+                propShow: false,
                 rankShow: false,
                 logShow: false,
                 userShow: false,
-                userInfo: {},
                 foodInfo: null,
                 taskList: [],
+                taskFeedList: [],
+                taskPropList: [],
                 rankList: null,
                 rankLength: null,
                 shopList: null,
@@ -167,11 +191,9 @@
                 reciveGoldMsg: 0,
                 popHomeMsg: null,
                 popHomeShow: false,
-                imgUrls: '',
                 egglineShow: false,
                 newGuideShow: false,
                 guideData: null,
-                guideIndex2: false,
                 newImagesShow: 0,
                 speedImgsLength: 0,
                 speedImageName: '',
@@ -182,25 +204,29 @@
                 msgData: {
                     show: false,
                 },
+                allpopShow: false,
+                newuserGuide: false,
+                appShareData: null,
+                shareType: 1,
             }
         },
         mounted() {
             let that = this;
             that.baseInfo.userid = document.getElementById('userid').value;
-            that.baseInfo.deviceid = document.getElementById('deviceid').value;
-            that.baseInfo.ptype = document.getElementById('ptype').value;
-            that.baseInfo.unix = document.getElementById('unix').value;
-            that.baseInfo.token = document.getElementById('token').value;
-            that.baseInfo.keycode = document.getElementById('keycode').value;
             that._getInfoData()
             that._popHome()
+            that._shareAppData()
             that.locals.uid = that.baseInfo.userid;
+            // console.log(navigator.userAgent.toLocaleString().split("("))
         },
         methods: {
-            _changeFeedAct: function () {
+            _changeFeedAct: function (type) {
                 let that = this;
                 if (that.foodInfo.length == 1) {
-                    that._feeding(that.foodInfo[0].foodtype, 100, true)
+                    return
+                }
+                if (that.feedTimeShow) {
+                    that.$toast('不要着急,还没吃完呢')
                     return
                 }
                 that.foodSide = !that.foodSide;
@@ -216,7 +242,9 @@
                 try {
                     android.goEggsGame(ccUrl)
                 } catch (error) {
-                    window.goEggsGame(ccUrl)
+                    if (window.goEggsGame) {
+                        window.goEggsGame(ccUrl)
+                    }
                 }
                 // } else {
                 //     that.$toast('敬请期待')
@@ -226,12 +254,27 @@
                 let that = this;
                 switch (id) {
                     case 0:
-                        that.shopsShow = !that.shopsShow;
-                        that._getShopData()
+                        // 动态
+                        that._logListData()
+                        that.logShow = true;
+                        break;
+                    case 1:
+                        //排行
+                        that.rankShow = true;
                         break;
                     case 2:
-                        //进入小鸡猜猜
-                        that._gotoGamecc()
+                        //抽奖
+                        try {
+                            android.goExchange()
+                        } catch (error) {
+                            try {
+                                // window.webkit.messageHandlers.goWork.postMessage();
+                                window.goExchange()
+                            } catch (error) {
+                                console.log('h5')
+                            }
+                        }
+                        return
                         break;
 
                     default:
@@ -239,6 +282,7 @@
                         break;
                 }
                 that.foodSide = false;
+                that.allpopShow = true;
 
             },
             _toFeed: function (type) {
@@ -248,7 +292,7 @@
                 let length = 0;
                 let status = that.nowStatus;
                 let lefts = that.newImagesShow;
-                let imgHost = 'http://download.pceggs.com:8080/xjyx/egg/';
+                let imgHost = 'http://xjccfile.pceggs.com:8080/xjyx/egg/';
                 let egglv = that.chickInfo.dlevel || 0;
                 // let egglv = 9;
                 let eggimg = '';
@@ -333,107 +377,11 @@
                     that.newImagesShow = lefts;
                 }, 100);
             },
-            _chickState: function (data) {
-                let that = this;
-                that.chickInfo = data.chicks[0] || null;
-                that.actionInfo = data.action[0] || null;
-                that.foodInfo = data.foods.length > 0 ? data.foods : null;
-                if (that.actionInfo) {
-                    let nowTime = Date.parse(new Date()) / 1000;
-                    let serverTime = Date.parse(new Date(that.actionInfo.nowtime.replace(/-/g, '/'))) / 1000;
-                    that.serverReduce = parseInt(serverTime - nowTime)
-                }
-                // console.log(that.chickInfo.state)
-                switch (that.chickInfo.state) {
-                    case 0:
-                        // 新人
-                        // dlevel = -1 新人 
-                        // popType : false 提示  true 新人
-                        that.newUser = true;
-                        that.popType = 1;
 
-                        that._toFeed('newgold')
-
-                        break;
-                    case 1:
-                        // 饥饿
-                        that._toFeed('hungry')
-                        break;
-                    case 2:
-                        // 喂食中
-                        that.feedTimeShow = true;
-                        that._toFeed('feed')
-
-                        break;
-                    case 3:
-                        // 无动作
-                        that._toFeed('touch')
-                        break;
-
-                    case 4:
-                        // 高级饲料
-                        that.feedTimeShow = true;
-                        that._toFeed('feedHigh')
-                        break;
-                    default:
-                        // 无动作
-                        that._toFeed('touch')
-                        break;
-                }
-
-                if (that.chickInfo.uplevel > 0) {
-                    that.setNameShow = true;
-                    that.popType = 2;
-                    that.popTitle = '小鸡升级啦~';
-                    that.popDleve = '<p>小鸡升至LV' + that.chickInfo.uplevel +
-                        '啦！</p><p>记得<font color="#FF4B27">领取孵化的鸡蛋</font></p>';
-                    if (that.chickInfo.uplevel == 1) {
-                        // 新人升级收蛋
-                        that.guideIndex2 = true;
-                    }
-                }
-
-                if (that.chickInfo.dlevel >= 1 && !that.setNameShow) {
-                    that._gameccShow()
-                }
-                that.$loading()
-                that._rankListData()
-            },
-            _newGuide: function (number) {
-                // 新人引导 
-                let that = this;
-                let localData = localStorage.getItem('gameEggs') || null;
-                let local = that.locals;
-                if (localData) {
-                    localData = JSON.parse(localData);
-                    if (localData.index || (localData.uid == that.chickInfo.chickid)) {
-                        if (localData.index <= 7) {
-                            that.newGuideShow = true;
-                            that.guideData = number ? number : localData.index;
-                        } else {
-                            that.newGuideShow = false;
-                        }
-                    } else {
-                        that.newGuideShow = true;
-                        that.guideData = 1;
-                        local.index = 1;
-                        that._setLolstorage('gameEggs', local)
-                    }
-                } else {
-                    that.newGuideShow = true;
-                    that.guideData = 1;
-                    local.index = 1;
-                    that._setLolstorage('gameEggs', local)
-                }
-
-            },
             _gameccShow: function () {
                 let that = this;
                 let localData = localStorage.getItem('gameEggsTocc') || null;
-                if (localData) {
-                    // 不显示
-
-                } else {
+                if (!localData) {
                     // 显示弹窗
                     that.setNameShow = true;
                     that.popTitle = '小鸡猜猜猜';
@@ -450,25 +398,19 @@
             _changeGuideIndex: function (index) {
                 let that = this;
                 let local = that.locals;
-                if (index == 99) {
-                    // 小鸡猜猜引导
-                    local.index = 99;
-                    that.newGuideShow = false;
-                    that._setLolstorage('gameEggs', local)
-                    return
 
-                }
-                if (index >= 7) {
+                if (index >= 9) {
                     that.newGuideShow = false;
-                    local.index = 8;
+                    local.index = 10;
                     that._setLolstorage('gameEggs', local)
                     return
                 }
+                that._closeList()
                 switch (index) {
                     case 1:
                         // 引导 1 喂食
-                        // that._feeding(1, 100, true)
-                        that._changeFeedAct()
+                        that._feeding(1, 100)
+                        // that._changeFeedAct()
                         that.newGuideShow = false;
                         break;
                     case 2:
@@ -502,7 +444,6 @@
                     } else {
                         that.$toast(res.data.msg)
                     }
-                    that._getPopsData()
                 })
             },
             _getPopsData: function () {
@@ -528,8 +469,11 @@
                     show: false,
                 };
             },
-            _feeding: function (type, num, newg) {
+            _feeding: function (type, num) {
                 let that = this;
+                if (!that.foodSide && that.foodInfo.length > 1) {
+                    return
+                }
                 if (num <= 0) {
                     return that.$toast('小鸡饲料不足')
                 }
@@ -546,42 +490,38 @@
                     }
                 }).then(function (res) {
                     if (res.data.status == 0) {
-                        let fdata = res.data.data.action[0] || null;
-                        that.actionInfo = res.data.data.action[0] || null;
-                        // that.chickInfo.foodnum = res.data.data.chick[0].foodnum || 0;
-                        that.foodInfo = res.data.data.foods || null;
-                        if (that.actionInfo) {
-                            let nowTime = Date.parse(new Date()) / 1000;
-                            let serverTime = Date.parse(new Date(that.actionInfo.nowtime.replace(/-/g,
-                                '/'))) / 1000;
-                            that.serverReduce = parseInt(serverTime - nowTime)
-                        }
-                        if (fdata) {
-                            switch (fdata.state) {
-                                case 0:
-                                case 2:
-                                    that._toFeed('none')
-                                    break;
-                                case 1:
-                                    that.feedTimeShow = true;
-                                    that._toFeed('feed')
+                        that._getInfoData()
+                        // let fdata = res.data.data.action[0] || null;
+                        // that.actionInfo = res.data.data.action[0] || null;
+                        // // that.chickInfo.foodnum = res.data.data.chick[0].foodnum || 0;
+                        // that.foodInfo = res.data.data.foods || null;
+                        // if (that.actionInfo) {
+                        //     let nowTime = Date.parse(new Date()) / 1000;
+                        //     let serverTime = Date.parse(new Date(that.actionInfo.nowtime.replace(/-/g,
+                        //         '/'))) / 1000;
+                        //     that.serverReduce = parseInt(serverTime - nowTime)
+                        // }
+                        // if (fdata) {
+                        //     switch (fdata.state) {
+                        //         case 0:
+                        //         case 2:
+                        //             that._toFeed('none')
+                        //             break;
+                        //         case 1:
+                        //             that.feedTimeShow = true;
+                        //             that._toFeed('feed')
 
-                                    break;
-                                case 3:
-                                    // 高级饲料
-                                    that.feedTimeShow = true;
-                                    that._toFeed('feedHigh')
-                                    break;
-                                default:
-                                    that._toFeed('none')
-                                    break;
-                            }
-                        }
-                        if (that.guideIndex2) {
-                            that.$toast('请5小时后来收取小鸡下的蛋')
-                            that._newGuide(3)
-                            that.guideIndex2 = false;
-                        }
+                        //             break;
+                        //         case 3:
+                        //             // 高级饲料
+                        //             that.feedTimeShow = true;
+                        //             that._toFeed('feedHigh')
+                        //             break;
+                        //         default:
+                        //             that._toFeed('none')
+                        //             break;
+                        //     }
+                        // }
                     } else {
                         that.$toast(res.data.msg)
 
@@ -648,10 +588,7 @@
                         that.reciveGoldShow = true;
                         that.reciveGoldMsg = res.data.data.receivedeggs || 0;
                         that._getInfoData()
-                        if (that.guideIndex2) {
-                            let local = that.locals;
-                            local.index = 1;
-                            that._setLolstorage('gameEggs', local)
+                        if (that.newuserGuide) {
                             setTimeout(() => {
                                 that._popHome()
                             }, 3000);
@@ -676,36 +613,141 @@
 
                 })
             },
-            _taskGoldData: function (id, type, type2) {
+            _chickState: function (data) {
+                let that = this;
+                that.chickInfo = data.chicks[0] || null;
+                that.actionInfo = data.action[0] || null;
+                that.foodInfo = data.foods.length > 0 ? data.foods : null;
+                if (that.actionInfo) {
+                    let nowTime = Date.parse(new Date()) / 1000;
+                    let serverTime = Date.parse(new Date(that.actionInfo.nowtime.replace(/-/g, '/'))) / 1000;
+                    that.serverReduce = parseInt(serverTime - nowTime)
+                }
+                // console.log(that.chickInfo.state)
+                switch (that.chickInfo.state) {
+                    case 0:
+                        // 新人
+                        // dlevel = -1 新人 
+                        // popType : false 提示  true 新人
+                        that.newUser = true;
+                        that.popType = 1;
+                        that._toFeed('newgold')
+                        break;
+                    case 1:
+                        // 饥饿
+                        that._toFeed('hungry')
+                        break;
+                    case 2:
+                        // 喂食中
+                        that.feedTimeShow = true;
+                        that._toFeed('feed')
+                        break;
+                    case 3:
+                        // 无动作
+                        that._toFeed('touch')
+                        break;
+                    case 4:
+                        // 高级饲料
+                        that.feedTimeShow = true;
+                        that._toFeed('feedHigh')
+                        break;
+                    case 5:
+                        // 青菜饲料
+                        that.feedTimeShow = true;
+                        that._toFeed('feedHigh')
+                        break;
+                    case 6:
+                        // 稻谷饲料
+                        that.feedTimeShow = true;
+                        that._toFeed('feedHigh')
+                        break;
+                    default:
+                        // 无动作
+                        that._toFeed('touch')
+                        break;
+                }
+
+                if (that.chickInfo.uplevel > 0) {
+                    that.setNameShow = true;
+                    that.popType = 2;
+                    that.popTitle = '小鸡升级啦~';
+                    that.popDleve = '<p>小鸡升至LV' + that.chickInfo.uplevel +
+                        '啦！</p><p>记得<font color="#FF4B27">领取孵化的鸡蛋</font></p>';
+                }
+                if (that.chickInfo.dlevel >= 1 && !that.newuserGuide && that.chickInfo.uplevel <= 0) {
+                    that._getPopsData()
+                    // if (!that.setNameShow) {
+                    //     that._gameccShow()
+                    // }
+                }
+                that.$loading()
+                that._rankListData()
+            },
+            _newGuide: function (number) {
+                // 新人引导 
+                let that = this;
+                let localData = JSON.parse(localStorage.getItem('gameEggs')) || null;
+                let local = that.locals;
+                if (localData && (localData.uid == that.baseInfo.userid)) {
+
+                    if (localData.index <= 9) {
+                        that.newGuideShow = true;
+                        that.newuserGuide = true;
+                        that.guideData = number ? number : localData.index;
+
+                    } else {
+                        that.newGuideShow = false;
+                        that.newuserGuide = false;
+                    }
+                } else {
+
+                    that.newGuideShow = true;
+                    that.newuserGuide = true;
+                    that.guideData = 1;
+                    local.index = 1;
+                    that._setLolstorage('gameEggs', local)
+                }
+            },
+            _taskButtonMethods: function (id, status, type) {
                 /**
                  *  params:(id, status, type)
-                 * status : 0 去试玩,去邀请 { tasktype: 1 去试玩, 2 去邀请, 3 去喂食 }
-                            1 去领取
-                            2 已领取
+                 * status : 0 去试玩,去邀请 { 
+                 * tasktype: 1 去试玩, 2 去邀请, 3 去喂食 
+                 * 11饲料奖励（小鸡猜猜猜）  12饲料奖励（每日分享） 13道具奖励（每日喂食） 14道具奖励（试玩领奖）
+                 * }
+                    1 去领取
+                    2 已领取
                  */
                 let that = this;
-                if (type == 2) {
+                if (status == 2) {
                     return
-                } else if (type == '0') {
-                    if (type2 == 1) {
-                        try {
-                            android.goFastPager()
-                        } catch (error) {
-                            if (window.goFastPager) {
-                                window.goFastPager()
+                } else if (status == '0') {
+                    switch (type) {
+                        case 11:
+                            //去小鸡猜猜
+                            that._gotoGamecc()
+                            break;
+                        case 12:
+                            //每日分享
+                            return
+                            break;
+                        case 13:
+                            //每日喂食
+                            that._closeList();
+                            break;
+                        case 14:
+                            //试玩领奖
+                            //去试玩
+                            try {
+                                android.goFastPager()
+                            } catch (error) {
+                                if (window.goFastPager) {
+                                    window.goFastPager()
+                                }
                             }
-                        }
-                    } else if (type2 == 2) {
-                        try {
-                            android.goInvite()
-                        } catch (error) {
-                            if (window.goInvite) {
-                                window.goInvite()
-                            }
-                        }
-                    } else if (type2 == 3) {
-                        // 去喂食
-                        that._closeList();
+                            break;
+                        default:
+                            break;
                     }
                     return
                 }
@@ -724,7 +766,8 @@
                         } catch (error) {
                             that.$toast(res.data.msg)
                         }
-                        that._taskListData()
+                        that._taskPropData()
+                        that._taskFeedData()
                         that._getInfoData()
 
                     }
@@ -732,15 +775,66 @@
 
                 })
             },
-            _taskListData: function () {
+
+            _appShareMethods(type) {
+                let that = this;
+                /**
+                    * appShareData :{title,context,url,icon}
+                    * startShare(String type, String title, String des, String url, String iconUrl, String imgUrl) 
+                    *  type 0 图片 1朋友圈 2好友
+                        title 标题
+                        des 描述
+                        url 分享链接
+                        iconUrl 分享链接的小图
+                        imgUrl 对应 type = 0时候分享的大图片
+                    */
+                try {
+                    android.startShare(type, that.appShareData.title, that.appShareData.context, that.appShareData.url,
+                        that.appShareData.icon, '')
+                } catch (error) {
+                    if (window.startShare) {
+                        window.startShare(type, that.appShareData.title, that.appShareData.context, that.appShareData
+                            .url, that.appShareData.icon, '')
+                    }
+                }
+                that._shareAppData('1')
+            },
+            _shareAppData(type) {
+                let that = this;
+                // shareApi
+                that.$http({
+                    url: that.$apis.shareApi,
+                    method: "post",
+                    data: {
+                        type: type || '',
+                    }
+                }).then(function (res) {
+                    if (res.data.status == 0) {
+                        that.appShareData = res.data.data.Share[0] || null;
+                    }
+                })
+            },
+            _taskFeedData: function () {
                 let that = this;
                 that.$http({
-                    url: that.$apis.taskListApi,
+                    url: that.$apis.taskFeedApi,
                     method: "post",
                     data: {}
                 }).then(function (res) {
                     if (res.data.status == 0) {
-                        that.taskList = res.data.data || []
+                        that.taskFeedList = res.data.data || []
+                    }
+                })
+            },
+            _taskPropData: function () {
+                let that = this;
+                that.$http({
+                    url: that.$apis.taskPropApi,
+                    method: "post",
+                    data: {}
+                }).then(function (res) {
+                    if (res.data.status == 0) {
+                        that.taskPropList = res.data.data || []
                     }
                 })
             },
@@ -776,23 +870,7 @@
                     }
                 })
             },
-            _getShopData: function () {
-                // 商店列表
-                let that = this;
-                // shopListApi
-                that.$http({
-                    url: that.$apis.shopListApi,
-                    method: "post",
-                    data: {
-                        chickid: that.chickInfo.chickid,
-                    }
-                }).then(function (res) {
-                    if (res.data.status == 0) {
-                        that.shopList = res.data.data || null;
-                    }
-                })
-            },
-            _shopMethods: function (name, id, msg) {
+            _shopMethods: function (name, id) {
                 let that = this;
                 switch (name) {
                     case 'feed':
@@ -800,11 +878,7 @@
                         that._buyProps(id)
                         break;
                     case 'my':
-                        that._useProps(id, 1)
-                        break;
-
-                    case 'my2':
-                        that._useProps(id, 2)
+                        that._useProps(id)
                         break;
                     default:
                         break;
@@ -814,7 +888,6 @@
             _buyProps: function (id) {
                 // 购买道具
                 let that = this;
-                // shopListApi
                 that.$http({
                     url: that.$apis.buyApi,
                     method: "post",
@@ -825,12 +898,12 @@
                 }).then(function (res) {
                     that.$toast(res.data.msg)
                     if (res.data.status == 0) {
-                        that._getShopData()
                         that._getInfoData()
+                        that._taskFeedData()
                     }
                 })
             },
-            _useProps: function (type, index) {
+            _useProps: function (type) {
                 // 使用道具
                 let that = this;
                 // shopListApi
@@ -844,15 +917,8 @@
                 }).then(function (res) {
                     that.$toast(res.data.msg)
                     if (res.data.status == 0) {
-                        if (index == 1) {
-                            that._getShopData()
-                            that._getInfoData()
-
-                        } else {
-                            that._getInfoData()
-                            that._taskListData()
-
-                        }
+                        that._taskPropData()
+                        that._getInfoData()
                     }
                 })
             },
@@ -882,10 +948,9 @@
 
                 switch (type) {
                     case 'name':
-                        if (that.guideIndex2) {
-                            // 新人首次收蛋
-                            that._newGuide()
-                        }
+                        //首次升级
+
+                        that._newGuide(2)
                         that.setNameShow = false;
                         break;
                     case 'gotocc':
@@ -918,36 +983,44 @@
                 let that = this;
                 switch (type) {
                     case 0:
-                        that.rankShow = true;
+                        // 领饲料
+                        that._taskFeedData()
+                        that.feedShow = true;
                         break;
                     case 1:
-                        that._taskListData()
-                        that.taskShow = true;
+                        // 领道具
+                        that._taskPropData()
+                        that.propShow = true;
                         break;
                     case 2:
-                        that._logListData()
-                        that.logShow = true;
+                        that._gotoGamecc()
+                        return
                         break;
                     case 3:
                         if (that.chickInfo && that.chickInfo.nickname != '') {
                             that._userInfoData()
                             that.userShow = true;
+                        } else {
+                            return
                         }
                         break;
                     default:
                         break;
                 }
                 that.foodSide = false;
+                that.allpopShow = true;
 
             },
             _closeList: function (type) {
                 let that = this;
                 that.rankShow = false;
-                that.taskShow = false;
+                that.feedShow = false;
+                that.propShow = false;
                 that.logShow = false;
                 that.userShow = false;
                 that.shopsShow = false;
                 that.foodSide = false;
+                that.allpopShow = false;
             },
             _closeRecivePop: function () {
                 this.reciveGoldShow = false;
@@ -955,12 +1028,14 @@
             _closePopHome: function () {
                 let that = this;
                 if (that.popHomeMsg && that.popHomeMsg.taskid == 1) {
-                    // 新人送饲料
-                    that._newGuide()
+                    // 新人送饲料  stage = 1
+
+                    that._newGuide(1)
                 }
                 if (that.popHomeMsg && that.popHomeMsg.taskid == 9) {
                     // 新人首次登录送饲料
-                    that._newGuide()
+
+                    that._newGuide(3)
                 }
                 that._getInfoData()
                 that.popHomeShow = false;
@@ -1010,10 +1085,6 @@
                 countDownTime = hour + ":" + min + ':' + sec
                 return countDownTime
             },
-            _checkUserInfo: function () {
-                let that = this;
-                that.userShow = true;
-            },
             _closeRaider: function () {
                 let that = this;
                 // that.raiderShow = !that.raiderShow;
@@ -1033,7 +1104,7 @@
     .home {
         width: 100vw;
         height: 100vh;
-        background: url(http://download.pceggs.com:8080/xjyx/egg/img/bg1.png) no-repeat bottom;
+        background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/bg1.png) no-repeat bottom;
         background-size: 100% auto;
         padding-top: $nav;
 
@@ -1072,7 +1143,6 @@
                 .content-right {
                     img {
                         width: 80%;
-                        margin: 0 auto;
                         display: block;
                     }
                 }
@@ -1098,7 +1168,7 @@
                     left: -.5rem;
                     width: 4rem;
                     height: .96rem;
-                    background: url(http://download.pceggs.com:8080/xjyx/egg/img/b1.png) no-repeat center;
+                    background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/b1.png) no-repeat center;
                     background-size: 100% auto;
                 }
 
@@ -1153,7 +1223,7 @@
                 color: #F28310;
                 font-weight: bold;
                 text-align: center;
-                background: url(http://download.pceggs.com:8080/xjyx/egg/img/l1.png) no-repeat center;
+                background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/l1.png) no-repeat center;
                 background-size: 100% auto;
                 z-index: 2;
             }
@@ -1194,24 +1264,36 @@
                     left: 0;
                     width: 100%;
                     height: 100%;
-
                 }
 
             }
         }
 
         .feed {
+            width: 1.48rem;
+            min-height: 1.48rem;
+            padding: .2rem;
             position: fixed;
             right: .3rem;
             bottom: 1.2rem;
             z-index: 9;
-            width: 1.28rem;
 
             .feed-cont {
-                width: .9rem;
-                height: .94rem;
+                width: 100%;
+                margin-bottom: .12rem;
                 position: relative;
-                margin: .12rem auto 0;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                .feed-re-img {
+                    width: 100%;
+
+                    img {
+                        width: 100%;
+                    }
+                }
 
                 .feed-re-num {
                     text-align: center;
@@ -1222,16 +1304,6 @@
                     line-height: .3rem;
                     color: #fff;
                 }
-            }
-
-            .feed-cont1 {
-                background: url(http://download.pceggs.com:8080/xjyx/egg/img/shop_food1_2.png) no-repeat;
-                background-size: 100% auto;
-            }
-
-            .feed-cont2 {
-                background: url(http://download.pceggs.com:8080/xjyx/egg/img/shop_food2_3.png) no-repeat;
-                background-size: 100% auto;
             }
 
             .feed-weight {
@@ -1253,7 +1325,7 @@
                 p:nth-child(1) {
                     width: 100%;
                     height: .35rem;
-                    background: url(http://download.pceggs.com:8080/xjyx/egg/img/jinshi1.png) no-repeat center;
+                    background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/jinshi1.png) no-repeat center;
                     background-size: auto 100%;
                 }
 
@@ -1266,21 +1338,36 @@
             }
 
             .feed-weishi {
-                background: url(http://download.pceggs.com:8080/xjyx/egg/img/weishi1.png) no-repeat center;
+                background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/weishi1.png) no-repeat center;
                 background-size: auto 100%;
             }
         }
 
+        .feed-side {
+            border-radius: 1rem;
+            box-shadow: 0 0 10px 3px inset #fff;
+        }
+
+        .feed-wrap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .feed-wrap-cont2 {
+            position: absolute;
+            bottom: 0;
+        }
+
         .feed-side-act {
-            height: 2.34rem;
-            background: url(http://download.pceggs.com:8080/xjyx/egg/img/shop_food_bg1.png) no-repeat center;
-            background-size: 100% auto;
+            // min-height: 1.28rem;
+            max-height: 6.5rem;
         }
 
         .feed-side-hide {
             height: 1.28rem;
-            background: url(http://download.pceggs.com:8080/xjyx/egg/img/w4.png) no-repeat center;
-            background-size: 100% auto;
+            max-height: 1.28rem;
         }
 
         .raider-click {

@@ -6,9 +6,9 @@
             <div class="nav-center">蛋蛋庄园-攻略</div>
             <div class="nav-right"></div>
         </div>
-        <img src="http://download.pceggs.com:8080/xjyx/egg/raider/strategy1.jpg" alt="">
-        <img src="http://download.pceggs.com:8080/xjyx/egg/raider/strategy2.jpg" alt="">
-        <img src="http://download.pceggs.com:8080/xjyx/egg/raider/strategy3.jpg" alt="">
+        <img src="http://xjccfile.pceggs.com:8080/xjyx/egg/raider/strategy1.jpg" alt="">
+        <img src="http://xjccfile.pceggs.com:8080/xjyx/egg/raider/strategy2.jpg" alt="">
+        <img src="http://xjccfile.pceggs.com:8080/xjyx/egg/raider/strategy3.jpg" alt="">
     </div>
 </template>
 

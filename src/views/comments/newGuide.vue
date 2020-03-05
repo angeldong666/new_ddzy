@@ -7,8 +7,8 @@
                 <div class="msg-san msg-san-right center3"></div>
             </div>
             <div class="guide-feed-img">
-                <img class="f-img1" src="http://download.pceggs.com:8080/xjyx/egg/img/w3.png" alt="">
-                <img class="f-img2" src="http://download.pceggs.com:8080/xjyx/egg/img/h1.png" alt="">
+                <img class="f-img1" src="http://xjccfile.pceggs.com:8080/xjyx/egg/img/w3.png" alt="">
+                <img class="f-img2" src="http://xjccfile.pceggs.com:8080/xjyx/egg/img/h1.png" alt="">
                 <div class="stroke">100g</div>
             </div>
         </div>
@@ -18,65 +18,75 @@
                 <div class="msg-san msg-san-left center3"></div>
             </div>
             <div class="guide-eggs-img">
-                <img class="f-img1" src="http://download.pceggs.com:8080/xjyx/egg/img/w12.png" alt="">
-                <img class="f-img2" src="http://download.pceggs.com:8080/xjyx/egg/img/h1.png" alt="">
+                <img class="f-img1" src="http://xjccfile.pceggs.com:8080/xjyx/egg/img/w12.png" alt="">
+                <img class="f-img2" src="http://xjccfile.pceggs.com:8080/xjyx/egg/img/h1.png" alt="">
             </div>
         </div>
-        <!-- 任务列表 -->
-        <div class="guide-content guide-task" v-show="indexShow == 3">
-            <div class="msg-container msg-updown msg-task-1" style="width:4rem;">完成任务，领取饲料。每日还免
-                费赠送100g饲料，快来领呀<div class="msg-san msg-san-down" style="left:1rem;"></div>
+        <!-- 领饲料 -->
+        <div class="guide-content guide-siliao guide-bottom" v-show="indexShow == 3">
+            <div class="msg-container msg-updown msg-siliao-1" style="width:4rem;">
+                完成任务，领取饲料。每日还免费赠送100g饲料，快来领呀<div class="msg-san msg-san-down" style="left:.5rem;"></div>
             </div>
-            <div class="guide-task-img">
-                <img class="f-img1" src="http://download.pceggs.com:8080/xjyx/egg/img/t-ling.png" alt="">
-                <img class="f-img2" src="http://download.pceggs.com:8080/xjyx/egg/img/h1.png" alt="">
+            <div class="guide-siliao-img guide-bottom2">
+                <img class="f-img1" src="http://xjccfile.pceggs.com:8080/xjyx/egg/img2/icon-lingsiliao.png" alt="">
             </div>
         </div>
-        <!-- 集市 -->
-        <div class="guide-content guide-jishi" v-show="indexShow == 4">
-            <div class="msg-container msg-lr msg-jishi-1" style="width:3.3rem;">获取的金蛋可以进行兑奖，
-                点击查看<div class="msg-san msg-san-left center3"></div>
+        <!-- 领道具 -->
+        <div class="guide-content guide-task guide-bottom" v-show="indexShow == 4">
+            <div class="msg-container msg-updown msg-task-1 guide-bottom1" style="width:4rem;">完成任务，领取道具。加速小鸡喂养时间，快来领呀
+                <div class="msg-san msg-san-down" style="left:1rem;"></div>
             </div>
-            <div class="guide-jishi-img">
-                <img class="f-img1" src="http://download.pceggs.com:8080/xjyx/egg/img/t-jishi.png" alt="">
+            <div class="guide-task-img guide-bottom2">
+                <img class="f-img1" src="http://xjccfile.pceggs.com:8080/xjyx/egg/img2/icon-daoju.png" alt="">
+                <!-- <img class="f-img2" src="http://xjccfile.pceggs.com:8080/xjyx/egg/img/h1.png" alt=""> -->
+            </div>
+        </div>
+        <!-- 玩游戏 -->
+        <div class="guide-content guide-log guide-bottom" v-show="indexShow == 5">
+            <div class="msg-container msg-updown msg-log-1 guide-bottom1" style="width:4rem;">猜猜小鸡跑了几只，猜中赢千倍
+                奖励<div class="msg-san msg-san-down" style="left:2.2rem;"></div>
+            </div>
+            <div class="guide-log-img guide-bottom2">
+                <img class="f-img1" src="http://xjccfile.pceggs.com:8080/xjyx/egg/img2/icon-wyx.png" alt="">
+            </div>
+        </div>
+        <!-- 抽奖 -->
+        <div class="guide-content guide-right guide-youxi" v-show="indexShow == 6">
+            <div class="msg-container msg-lr msg-youxi-1" style="width:3.3rem;">获取的金蛋可以进行兑奖，点击查看<div
+                    class="msg-san msg-san-right center3"></div>
+            </div>
+            <div class="guide-right-2 guide-youxi-img">
+                <img class="f-img1" src="http://xjccfile.pceggs.com:8080/xjyx/egg/img2/icon-cj.png" alt="">
             </div>
         </div>
         <!-- 攻略 -->
-        <div class="guide-content guide-tips" v-show="indexShow == 5">
+        <div class="guide-content guide-tips" v-show="indexShow == 7">
             <div class="msg-container msg-lr msg-tips-1" style="width:3.4rem;">点击可查看如何养成小鸡的攻略
                 <div class="msg-san msg-san-right center3"></div>
             </div>
             <div class="guide-tips-img">
-                <img class="f-img1" src="http://download.pceggs.com:8080/xjyx/egg/img/r1.png" alt="">
+                <img class="f-img1" src="http://xjccfile.pceggs.com:8080/xjyx/egg/img/r1.png" alt="">
             </div>
         </div>
         <!-- 动态列表 -->
-        <div class="guide-content guide-log" v-show="indexShow == 6">
-            <div class="msg-container msg-updown msg-log-1" style="width:4rem;">查看小鸡的相关动态。喂食、领
-                取饲料、获得金蛋等动态<div class="msg-san msg-san-down" style="left:2.2rem;"></div>
+        <div class="guide-content guide-right guide-dongtai" v-show="indexShow == 8">
+            <div class="msg-container msg-lr dongtai-1" style="width:3.3rem;">查看小鸡的相关动态。喂食、领取饲料、获得金蛋等动态<div
+                    class="msg-san msg-san-right center3"></div>
             </div>
-            <div class="guide-log-img">
-                <img class="f-img1" src="http://download.pceggs.com:8080/xjyx/egg/img/t-dongtai.png" alt="">
+            <div class="guide-right-2 dongtai-2">
+                <img class="f-img1" src="http://xjccfile.pceggs.com:8080/xjyx/egg/img2/icon-dongtai.png" alt="">
             </div>
         </div>
         <!-- 好友列表 -->
-        <div class="guide-content guide-rank" v-show="indexShow == 7">
-            <div class="msg-container msg-updown msg-rank-1" style="width:4rem;">点击可查看所有参与养成小鸡的排行<div
-                    class="msg-san msg-san-down" style="left:.4rem;"></div>
+        <div class="guide-content guide-right guide-rank" v-show="indexShow == 9">
+            <div class="msg-container msg-lr rank-1" style="width:3.3rem;">点击可查看所有参与养成小鸡的排行<div
+                    class="msg-san msg-san-right center3"></div>
             </div>
-            <div class="guide-rank-img">
-                <img class="f-img1" src="http://download.pceggs.com:8080/xjyx/egg/img/t-you.png" alt="">
+            <div class="guide-right-2 rank-2">
+                <img class="f-img1" src="http://xjccfile.pceggs.com:8080/xjyx/egg/img2/icon-paihang.png" alt="">
             </div>
         </div>
 
-        <!-- 游戏 -->
-        <div class="guide-content guide-youxi" v-show="indexShow == 99">
-            <div class="msg-container msg-lr msg-youxi-1" style="width:3.3rem;">小鸡猜猜在这里哦~ 点击前往<div class="msg-san msg-san-right center3"></div>
-            </div>
-            <div class="guide-youxi-img">
-                <img class="f-img1" src="http://download.pceggs.com:8080/xjyx/egg/img/t-game.png" alt="">
-            </div>
-        </div>
     </div>
 </template>
 
@@ -116,7 +126,7 @@
 
         .guide-feed {
             bottom: 0;
-            height: 2.5rem;
+            height: 2.65rem;
 
             .msg-feed-1 {
                 margin-top: .36rem;
@@ -124,11 +134,11 @@
             }
 
             .guide-feed-img {
-                width: 1.28rem;
-                height: 1.28rem;
+                width: 1.48rem;
+                height: 1.48rem;
                 position: relative;
                 float: right;
-                margin-right: .4rem;
+                margin-right: .3rem;
 
                 div {
                     position: absolute;
@@ -169,33 +179,14 @@
             }
         }
 
-        .guide-jishi {
-            top: 2.6rem;
-            height: 2rem;
+        .guide-right {
+            .msg-lr {
+                right: 1.8rem;
+                top: .2rem;
 
-            .msg-jishi-1 {
-                left: 2.3rem;
             }
 
-            .guide-jishi-img {
-                width: 1.1rem;
-                height: 1.2rem;
-                position: absolute;
-                margin-right: .4rem;
-                left: .3rem;
-            }
-        }
-
-        .guide-youxi {
-            top: 4.1rem;
-            height: 2rem;
-
-            .msg-youxi-1 {
-                right: 2.3rem;
-                top: .3rem;
-            }
-
-            .guide-youxi-img {
+            .guide-right-2 {
                 width: 1.1rem;
                 height: 1.2rem;
                 position: absolute;
@@ -204,55 +195,55 @@
             }
         }
 
+        .guide-youxi {
+            top: 4.1rem;
+            height: 2rem;
+        }
 
-        .guide-task {
+        .guide-dongtai {
+            top: 1.2rem;
+            height: 2rem;
+        }
+
+        .guide-rank {
+            top: 2.6rem;
+            height: 2rem;
+        }
+
+        .guide-bottom {
             bottom: 0;
-            height: 3.2rem;
+            height: 2.9rem;
 
-            .msg-task-1 {
+            .guide-bottom1 {
                 left: 1rem;
             }
 
-            .guide-task-img {
+            .guide-bottom2 {
                 width: 1.1rem;
                 height: 1.2rem;
                 position: absolute;
                 bottom: .56rem;
+            }
+        }
+
+        .guide-siliao {
+            .msg-siliao-1 {
+                left: .2rem;
+            }
+            .guide-siliao-img {
+                left: .3rem;
+            }
+        }
+
+        .guide-task {
+            .guide-task-img {
                 left: 1.55rem;
             }
         }
 
         .guide-log {
-            bottom: 0;
-            height: 3.2rem;
-
-            .msg-log-1 {
-                left: 1rem;
-            }
-
             .guide-log-img {
-                width: 1.1rem;
-                height: 1.2rem;
-                position: absolute;
-                bottom: .56rem;
                 left: 2.8rem;
-            }
-        }
-
-        .guide-rank {
-            bottom: 0;
-            height: 3.2rem;
-
-            .msg-rank-1 {
-                left: .3rem;
-            }
-
-            .guide-rank-img {
-                width: 1.1rem;
-                height: 1.2rem;
-                position: absolute;
-                bottom: .56rem;
-                left: 0.3rem;
             }
         }
 

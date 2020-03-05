@@ -19,7 +19,12 @@ export const gameApi = {
   buyApi: '/IFS/ManorStore/MS_BuyingProp.ashx',
   useBuyApi: '/IFS/MyManor/MM_SetProp.ashx',
 
+  taskFeedApi: '/IFS/MyManor/MM_FoodTasklist.ashx',
+  taskPropApi: '/IFS/MyManor/MM_PropTasklist.ashx',
+
   userInfoApi: '/IFS/MyManor/MM_ChickDetail.ashx',
+
+  shareApi: '/IFS/Task/Task_TaskShare.ashx',
 
   clearApi: '/IFS/MyManor/MM_DeleteChick.ashx',
 

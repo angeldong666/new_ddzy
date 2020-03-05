@@ -1,23 +1,26 @@
 <template>
     <!-- 任务列表 -->
-    <div class="fixed log" @click.stop="_selfClose()">
-        <div :class="'list-cont log-cont center '+ (popUp?'list-pop-up':'list-pop-down')" @click.stop>
-            <div class="list-title log-title center">小鸡动态</div>
-            <div class="list-list center log-wrap">
+    <div class="fixed2 log" @click.stop="_selfClose() ">
+        <!-- + (popUp?'list-pop-up':'list-pop-down') -->
+        <div :class="'list-cont log-cont center '" @click.stop>
+            <div class="list-title log-title">小鸡动态</div>
+            <div class="list-list log-wrap list-scroll">
                 <div class="log-list" v-for="(item,key,index) in closeList.logList" :key="index">
                     <div class="log-date">{{_changeDate(key)}}</div>
-                    <div class="log-item flex-left" v-for="(item2,index2) in item" v-show="item.length>0" :key="index2">
-                        <div class="item-left">
-                            <div class="v-line center"></div>
-                            <div :class="'v-icon center2 ' + (item2.itype=='1'?'icon-recive':'icon-feed')"></div>
-                        </div>
-                        <div class="item-right">
-                            <div class="right-time">{{item2.itime}}</div>
-                            <div class="right-msg flex-bt">
-                                <div class="msg-left">{{item2.explain}}</div>
-                                <div class="msg-right" v-html="item2.num"></div>
+                    <div class="log-lines">
+                        <div class="log-item" v-for="(item2,index2) in item" v-show="item.length>0" :key="index2">
+                            <div class="item-right">
+                                <div class="right-time">{{item2.itime}}</div>
+                                <div class="right-msg flex-bt">
+                                    <div class="msg-left">{{item2.explain}}</div>
+                                    <div class="msg-right" v-html="item2.num"></div>
+                                </div>
+                                <div class="right-icon center3"></div>
                             </div>
-                            <div class="right-icon"></div>
+                            <div class="v-wrap">
+                                <div class="v-line center"></div>
+                                <div :class="'v-icon ' + (item2.itype=='1'?'icon-recive':'icon-feed')"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="none-list" v-show="item.length<=0">暂无记录</div>
@@ -38,22 +41,10 @@
                 list: []
             }
         },
-        watch: {
-            'closeList.logShow': function () {
-                this.popUp = this.closeList.logShow;
-            }
-        },
-        mounted() {
-
-        },
         methods: {
             _selfClose: function () {
                 let that = this;
-                that.popUp = false;
-                let times = setTimeout(() => {
-                    that.closeList._closeList();
-                    clearTimeout(times)
-                }, 600);
+                that.closeList._closeList();
             },
             _changeDate: function (time) {
                 switch (time) {
@@ -88,7 +79,6 @@
             }
 
             .log-list {
-                overflow: hidden;
 
                 .log-date {
                     color: #6F4818;
@@ -98,41 +88,45 @@
 
                 .log-item {
                     width: 100%;
-                    height: 1.38rem;
-                    overflow: hidden;
-                    float: left;
+                    position: relative;
+                    padding-left: .7rem;
+                    padding-bottom: .2rem;
 
-                    .item-left {
-                        min-width: .4rem;
+                    .v-wrap {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: .5rem;
                         height: 100%;
-                        position: relative;
 
                         .v-line {
                             width: 1px;
                             height: 100%;
                             background: #E6B368;
+                            position: absolute;
+                            top: 0;
                         }
 
                         .v-icon {
-                            width: .4rem;
-                            height: .4rem;
+                            width: 100%;
+                            height: calc(100% - 0.2rem);
+                            position: relative;
+                            z-index: 2;
                         }
 
                         .icon-feed {
-                            background: url(http://download.pceggs.com:8080/xjyx/egg/img/w2.png) no-repeat;
-                            background-size: 100% auto;
+                            background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/w2.png) no-repeat center;
+                            background-size: .4rem auto;
                         }
 
                         .icon-recive {
-                            background: url(http://download.pceggs.com:8080/xjyx/egg/img/w11.png) no-repeat;
-                            background-size: 100% auto;
+                            background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/w11.png) no-repeat center;
+                            background-size: .4rem auto;
                         }
                     }
 
                     .item-right {
                         width: 100%;
-                        height: 1.18rem;
-                        margin-left: .3rem;
                         background: #FBE1B8;
                         border-radius: .2rem;
                         padding: .2rem;
@@ -146,15 +140,18 @@
 
                         .right-msg {
                             color: #6F4818;
+                            word-break: break-all;
+
+                            .msg-left {
+                                margin-right: .1rem;
+                            }
                         }
 
                         .right-icon {
-                            position: absolute;
-                            left: -.12rem;
-                            top: .58rem;
                             width: .13rem;
                             height: .21rem;
-                            background: url(http://download.pceggs.com:8080/xjyx/egg/img/j1.png) no-repeat;
+                            left: -.13rem;
+                            background: url(http://xjccfile.pceggs.com:8080/xjyx/egg/img/j1.png) no-repeat;
                             background-size: 100% auto;
                         }
                     }
