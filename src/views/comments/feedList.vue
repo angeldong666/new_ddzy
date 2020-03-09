@@ -38,8 +38,8 @@
                         <!-- 分享 -->
                         <div :class="'item-share flex-ar flex-algin-center ' + (shareShow?'share-act':'share-hide')"
                             v-if="item.tasktype == 12">
-                            <div class="btn-share share-hy" @click="_appShare('1')">分享给好友</div>
-                            <div class="btn-share share-pyq" @click="_appShare('2')">分享到朋友圈</div>
+                            <div class="btn-share share-hy" @click="_appShare('2')">分享给好友</div>
+                            <div class="btn-share share-pyq" @click="_appShare('1')">分享到朋友圈</div>
                         </div>
                     </div>
                 </template>
@@ -141,7 +141,6 @@
                 position: relative;
                 box-shadow: 0px 3px 0px 0px #E9C38B inset;
                 background: #F9D6A3;
-                overflow: hidden;
             }
 
             .task-nav-list {
@@ -240,6 +239,7 @@
                     -webkit-transition: all .3s;
                     transition: all .3s;
                     overflow: hidden;
+                    border-radius: .2rem;
 
                     .btn-share {
                         height: 100%;

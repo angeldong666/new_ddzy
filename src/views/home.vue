@@ -53,19 +53,14 @@
             v-if="!newUser && chickInfo && foodInfo" @click="_changeFeedAct(foodSide)">
             <!-- 饲料列表v-show="foodSide" -->
             <div class="feed-wrap">
-                <div :class="(foodSide?'feed-wrap-cont':'feed-wrap-cont2')">
+                <div :class="' '+(foodSide?'feed-wrap-cont':'feed-wrap-cont2')">
                     <div class="feed-cont" v-for="(item,index) in foodInfo" :key="index"
                         @click="_feeding(item.foodtype,item.total)">
-                        <div class="feed-re-img"><img :src="item.img" alt=""></div>
+                        <img :src="item.img" alt="">
                         <div class="stroke feed-re-num">{{item.total || 0}}g</div>
                     </div>
                 </div>
             </div>
-            <!-- 当前饲料 -->
-            <!-- <div :class="'feed-cont '+(foodInfo.length>1?('feed-cont'+foodInfo[1].foodtype):('feed-cont'+foodInfo[0].foodtype))"
-                v-show="!foodSide">
-                <div class="stroke feed-re-num">{{foodInfo.length>1?(foodInfo[1].total):(foodInfo[0].total)}}g</div>
-            </div> -->
 
             <div class="feed-weight feed-weishi" v-show="!feedTimeShow"></div>
             <div class="feed-weight feed-time" v-if="feedTimeShow">
@@ -649,17 +644,17 @@
                     case 4:
                         // 高级饲料
                         that.feedTimeShow = true;
-                        that._toFeed('feedHigh')
+                        that._toFeed('feed')
                         break;
                     case 5:
                         // 青菜饲料
                         that.feedTimeShow = true;
-                        that._toFeed('feedHigh')
+                        that._toFeed('feed')
                         break;
                     case 6:
                         // 稻谷饲料
                         that.feedTimeShow = true;
-                        that._toFeed('feedHigh')
+                        that._toFeed('feed')
                         break;
                     default:
                         // 无动作
@@ -789,12 +784,24 @@
                         imgUrl 对应 type = 0时候分享的大图片
                     */
                 try {
-                    android.startShare(type, that.appShareData.title, that.appShareData.context, that.appShareData.url,
-                        that.appShareData.icon, '')
+                    android.startShare(
+                        type,
+                        that.appShareData.title,
+                        that.appShareData.context,
+                        that.appShareData.url,
+                        that.appShareData.icon,
+                        ''
+                    )
                 } catch (error) {
                     if (window.startShare) {
-                        window.startShare(type, that.appShareData.title, that.appShareData.context, that.appShareData
-                            .url, that.appShareData.icon, '')
+                        window.startShare(
+                            type,
+                            that.appShareData.title,
+                            that.appShareData.context,
+                            that.appShareData.url,
+                            that.appShareData.icon,
+                            ''
+                        )
                     }
                 }
                 that._shareAppData('1')
@@ -810,7 +817,16 @@
                     }
                 }).then(function (res) {
                     if (res.data.status == 0) {
-                        that.appShareData = res.data.data.Share[0] || null;
+                        try {
+                            that.appShareData = res.data.data.Share[0];
+                        } catch (error) {
+                            that.appShareData = {
+                                title: '',
+                                context: '',
+                                url: '',
+                                icon: '',
+                            }
+                        }
                     }
                 })
             },
@@ -1270,8 +1286,8 @@
         }
 
         .feed {
-            width: 1.48rem;
-            min-height: 1.48rem;
+            width: 1.3rem;
+            min-height: 1.3rem;
             padding: .2rem;
             position: fixed;
             right: .3rem;
@@ -1279,20 +1295,19 @@
             z-index: 9;
 
             .feed-cont {
-                width: 100%;
-                margin-bottom: .12rem;
+                width: .9rem;
+                height: .9rem;
+                margin: 0 auto .22rem;
                 position: relative;
 
                 &:last-child {
                     margin-bottom: 0;
                 }
 
-                .feed-re-img {
-                    width: 100%;
-
-                    img {
-                        width: 100%;
-                    }
+                img {
+                    height: .9rem;
+                    display: block;
+                    margin: 0 auto;
                 }
 
                 .feed-re-num {
@@ -1345,7 +1360,7 @@
 
         .feed-side {
             border-radius: 1rem;
-            box-shadow: 0 0 10px 3px inset #fff;
+            box-shadow: 0 0 10px 3px #fff inset;
         }
 
         .feed-wrap {
@@ -1366,8 +1381,8 @@
         }
 
         .feed-side-hide {
-            height: 1.28rem;
-            max-height: 1.28rem;
+            height: 1.3rem;
+            max-height: 1.3rem;
         }
 
         .raider-click {

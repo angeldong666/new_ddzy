@@ -37,8 +37,8 @@
                         </div>
                         <!-- 分享 -->
                         <div class="item-share flex-ar flex-algin-center" v-if="item.tasktype == 12 && shareShow">
-                            <div class="btn-share share-hy" @click="_appShare('1')">分享给好友</div>
-                            <div class="btn-share share-pyq" @click="_appShare('2')">分享到朋友圈</div>
+                            <div class="btn-share share-hy" @click="_appShare('2')">分享给好友</div>
+                            <div class="btn-share share-pyq" @click="_appShare('1')">分享到朋友圈</div>
                         </div>
                     </div>
                 </template>
@@ -235,6 +235,7 @@
                     background: #FDE0B7;
                     color: #BB773B;
                     font-size: .24rem;
+                    border-radius: .2rem;
 
                     .btn-share {
                         line-height: .5rem;
