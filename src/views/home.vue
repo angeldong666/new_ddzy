@@ -212,7 +212,6 @@
             that._popHome()
             that._shareAppData()
             that.locals.uid = that.baseInfo.userid;
-            // console.log(navigator.userAgent.toLocaleString().split("("))
         },
         methods: {
             _changeFeedAct: function (type) {
@@ -454,6 +453,8 @@
                             show: true,
                             title: datas.title,
                             msg: datas.context,
+                            type: datas.type,
+                            link: datas.link,
                         };
 
                     }

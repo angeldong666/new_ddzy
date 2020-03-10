@@ -194,13 +194,13 @@
 
                     .item-bot {
                         .bot-num {
-                            width: 1.6rem;
+                            min-width: 1.6rem;
                             height: .36rem;
                             line-height: .36rem;
                             background: #D59459;
                             border-radius: .2rem;
                             text-align: center;
-                            padding-left: .2rem;
+                            padding: 0 .2rem 0 .4rem;
                             color: #fff;
                             font-size: .22rem;
                             position: relative;

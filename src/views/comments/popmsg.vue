@@ -6,7 +6,7 @@
             <!-- 弹窗提示 -->
             <div class="pop-text egg-msg">
                 <div class="name-tip" v-html="msgData.msg"></div>
-                <div class="pop-btn" @click="gotoGame()"></div>
+                <div class="pop-btn" @click="gotoGame(msgData.type)"><img :src="msgData.link" alt=""></div>
             </div>
             <div class="pop-close" @click="_closePop()"></div>
         </div>
@@ -26,8 +26,14 @@
             _closePop: function () {
                 this.$emit('_closePopShow')
             },
-            gotoGame: function () {
-                this.$emit('_gotoGamecc')
+            gotoGame: function (type) {
+                let that = this;
+                if (type != 0) {
+                    that.$emit('_closePopShow')
+                } else {
+                    that.$emit('_gotoGamecc')
+
+                }
             }
         },
     }
@@ -65,8 +71,11 @@
                 width: 3.23rem;
                 height: .94rem;
                 margin: .5rem auto 0;
-                background: url(https://wechat-1253215910.cos.ap-shanghai.myqcloud.com/dbzzl/btnqty01.png) no-repeat;
-                background-size: 100% 100%;
+
+                img {
+                    width: 100%;
+                    height: auto;
+                }
             }
 
             .pop-close {
