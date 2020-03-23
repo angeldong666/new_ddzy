@@ -38,8 +38,33 @@
 
 			let uids = document.getElementById('testuid').value;
 			that.isTest = uids.indexOf(that.baseInfo.userid) != -1 ? true : false;
+
+			console.log(that.get_ios_version())
+			console.log(that.get_android_version())
 		},
 		methods: {
+			get_ios_version() {
+				var ua = navigator.userAgent.toLowerCase();
+				var version = null;
+				if (ua.indexOf("like mac os x") > 0) {
+					var reg = /os [\d._]+/gi;
+					var v_info = ua.match(reg);
+					version = (v_info + "").replace(/[^0-9|_.]/ig, "").replace(/_/ig, "."); //得到版本号9.3.2或者9.0
+				}
+
+				return version;
+			},
+			get_android_version() {
+				var ua = navigator.userAgent.toLowerCase();
+				var version = null;
+				if (ua.indexOf("android") > 0) {
+					var reg = /android [\d._]+/gi;
+					var v_info = ua.match(reg);
+					version = (v_info + "").replace(/[^0-9|_.]/ig, "").replace(/_/ig, "."); //得到版本号4.2.2
+				}
+
+				return version;
+			},
 			_clearUserInfo: function () {
 				// clearApi
 				let that = this;
@@ -147,6 +172,7 @@
 		top: 0;
 		left: 0;
 	}
+
 	.fixed2 {
 		position: fixed;
 		width: 100vw;
