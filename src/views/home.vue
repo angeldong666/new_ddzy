@@ -476,6 +476,11 @@
                 if (that.feedTimeShow) {
                     return that.$toast('不要着急,还没吃完呢')
                 }
+                if (that.isFeeding) {
+                    return
+                }
+                that.isFeeding = true;
+                console.log(that.isFeeding)
                 that.$http({
                     url: that.$apis.feedApi,
                     method: "post",
@@ -522,6 +527,7 @@
                         that.$toast(res.data.msg)
 
                     }
+                    that.isFeeding = false;
 
                 })
             },
@@ -966,9 +972,11 @@
                 switch (type) {
                     case 'name':
                         //首次升级
-
-                        that._newGuide(2)
                         that.setNameShow = false;
+                        if (that.popType == 1) {
+                            return
+                        }
+                        that._newGuide(2)
                         break;
                     case 'gotocc':
                         that.setNameShow = false;

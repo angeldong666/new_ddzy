@@ -18,7 +18,7 @@ const LOCAL_HOST = 'http://192.168.1.63:8082';
 //
 // const API_HOST = 'http://manorapp.pceggs.com';
 
-const API_HOST = 'http://192.168.1.63:8082';
+const API_HOST = '';
 
 // axios.defaults.baseURL = DEFAULT_API_HOST
 axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? LOCAL_HOST : API_HOST
