@@ -3,22 +3,21 @@
 		<!-- 导航栏 -->
 		<div class="navbar flex-bt">
 			<div class="nav-left" @click="goHome()"></div>
-			<div class="nav-center" @click="_clearStorage">蛋蛋庄园</div>
+			<div class="nav-center" @click="_clearStorage">{{navTitle}}</div>
 			<div class="nav-right" v-if="isTest" @click="_clearUserInfo">重置</div>
 			<div class="nav-right" v-if="!isTest"></div>
 		</div>
-		<!-- <router-view :base-info="baseInfo"></router-view> -->
-		<Home></Home>
+		<router-view :base-info="baseInfo"></router-view>
+		<!-- <Home></Home> -->
+		<!-- <Xj></Xj> -->
 	</div>
 </template>
 
 <script>
-	import Home from './home'
+	// import Home from './home'
+	// import Xj from './comments/xj'
 	export default {
 		name: 'app',
-		components: {
-			Home
-		},
 		data() {
 			return {
 				baseInfo: {
@@ -29,6 +28,23 @@
 					token: '',
 				},
 				isTest: false,
+				navTitle: '蛋蛋庄园'
+			}
+		},
+		watch: {
+			'$route': function () {
+				let that = this;
+				switch (this.$route.name) {
+					case 'home':
+						that.navTitle = '蛋蛋庄园';
+						break;
+					case 'dress':
+						that.navTitle = '装扮';
+						break;
+					default:
+						that.navTitle = '蛋蛋庄园';
+						break;
+				}
 			}
 		},
 		mounted() {
@@ -38,6 +54,7 @@
 
 			let uids = document.getElementById('testuid').value;
 			that.isTest = uids.indexOf(that.baseInfo.userid) != -1 ? true : false;
+
 		},
 		methods: {
 			_clearUserInfo: function () {
@@ -71,16 +88,22 @@
 				}
 			},
 			goHome: function () {
-				try {
-					android.goBack()
-				} catch (error) {
+				// window.cancelAnimationFrame()
+				if (this.$route.name == 'home') {
 					try {
-						// window.webkit.messageHandlers.goBack.postMessage();
-						window.goBack();
+						android.goBack()
 					} catch (error) {
-						console.log('h5')
+						try {
+							// window.webkit.messageHandlers.goBack.postMessage();
+							window.goBack();
+						} catch (error) {
+							console.log('h5')
+						}
 					}
+				} else {
+					window.history.go(-1)
 				}
+
 			}
 		}
 	}

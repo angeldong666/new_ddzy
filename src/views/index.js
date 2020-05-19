@@ -1,12 +1,12 @@
 /* eslint-disable no-new */
 import Vue from 'vue'
-// import VueRouter from 'vue-router'
+import VueRouter from 'vue-router'
 import axios from '@/config/http'
 // import 'mint-ui/lib/style.css'
 import App from './App'
 // import Mint from 'mint-ui'
 // import VueLazyload from 'vue-lazyload'
-// import routes from './routes.js'
+import routes from './routes.js'
 
 import Toast from '@/components/toast.js'
 // import store from './store.js'
@@ -17,16 +17,20 @@ import Toast from '@/components/toast.js'
 import {
   gameApi
 } from '@/config/api'
+
+// 全局引入mock配置文件
+// require('../../mock/index')
+
 // // NProgress简单配置
 /*
  * @param {{inc:Number}} NProgress
  * */
-// NProgress.inc(0.2)
-// NProgress.configure({
-//   easing: 'ease',
-//   speed: 500,
-//   showSpinner: false
-// })
+NProgress.inc(0.2)
+NProgress.configure({
+  easing: 'ease',
+  speed: 300,
+  showSpinner: false
+})
 
 // Vue.config.debug = true
 // Vue.config.devTools = true
@@ -45,28 +49,31 @@ Vue.prototype.$loading = function (type) {
 // 注册全局过滤器
 // Vue.filter('imgHttpsSrc', imgHttpsSrc)
 
-// Vue.use(VueRouter)
+Vue.use(VueRouter)
 // 载入router配置 默认hash;history
-// let router = new VueRouter({
-//   mode: '',
-//   routes: routes
-// })
+let router = new VueRouter({
+  mode: '',
+  routes: routes
+})
 
-// router.beforeEach((to, from, next) => {
-//   Vue.prototype.$loading('show')
-//   if (to.meta.title) {
-//     document.title = to.meta.title
-//   }
-//   NProgress.start()
-//   next()
-// })
-// router.afterEach(() => {
-//   NProgress.done()
-// })
+router.beforeEach((to, from, next) => {
+  // Vue.prototype.$loading('show')
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  NProgress.start()
+  next()
+})
+router.afterEach(() => {
+  NProgress.done()
+})
 document.body.addEventListener('touchstart', function () {});
 new Vue({
   el: '#app',
-  // router,
+  router,
   // store,
   render: h => h(App)
 })
+
+const FastClick = require('fastclick');
+FastClick.attach(document.body)

@@ -2,7 +2,7 @@
     <!-- 主页 -->
     <div class="home">
         <Avatar :user-info="{chickInfo,_showList}"></Avatar>
-        <!-- <SideLeft v-if="chickInfo"></SideLeft> -->
+        <SideLeft v-if="chickInfo"></SideLeft>
         <SideRight v-if="chickInfo" :right-data="{_sideRight}"></SideRight>
         <!-- 主体 -->
         <div class="content center">
@@ -120,6 +120,7 @@
 <script>
     import Qs from 'qs'
     import Avatar from './comments/avatar'
+    import SideLeft from './comments/sideLeft'
     import SideRight from './comments/sideright'
     import SideBottom from './comments/sidebottom'
     import Pop from './comments/pop'
@@ -138,6 +139,7 @@
         props: [],
         components: {
             Avatar,
+            SideLeft,
             SideRight,
             SideBottom,
             Pop,
@@ -212,6 +214,11 @@
             that._popHome()
             that._shareAppData()
             that.locals.uid = that.baseInfo.userid;
+            window.AppRefresh = function () {
+                that._getInfoData()
+                that._popHome()
+                that._shareAppData()
+            }
         },
         methods: {
             _changeFeedAct: function (type) {

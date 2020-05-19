@@ -10,7 +10,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 //const LOCAL_HOST = '/api'
 // api服务器地址，特殊地址需要在api中添加对应域名
 
-const LOCAL_HOST = 'http://192.168.1.63:8082';
+// const LOCAL_HOST = 'http://192.168.1.63:8082';
+const LOCAL_HOST = 'http://192.168.1.162:8082';
 
 // const LOCAL_HOST = 'http://manortest.pceggs.com';
 

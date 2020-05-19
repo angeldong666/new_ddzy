@@ -4,6 +4,7 @@ const path = require('path')
 // var build = require('./build');
 // 用于做相应的 merge 处理
 // const merge = require('webpack-merge');
+// const mack_dress = require('./mock/dress.json')
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -61,15 +62,21 @@ module.exports = {
         host: '192.168.2.162', // 默认是 localhost
         port: 8082, // 端口地址
         https: false, // 使用https提供服务
-        proxy: null,
+        // proxy: null,
         // proxy: {
-        //     '/IFS': {
+        //     '/api/msdk/proxy/query_common_credit': {
         //         target: 'http://apptest.pceggs.com', // 目标地址
         //         changeOrigin: true, // 是否改变源地址
-        //         pathRewrite: {'^/IFS': ''}
+        //         pathRewrite: {
+        //             '^/IFS': ''
+        //         }
         //     }
         // },
-        // before: app => {},
+        // before: app => {
+        //     app.post('/dress', (req, res, next) => {
+        //         res.json(mack_dress)
+        //     })
+        // },
         // historyApiFallback: {
         //     index: '/index.html'
         // },

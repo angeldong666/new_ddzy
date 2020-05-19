@@ -9,7 +9,7 @@
 
 <script>
     export default {
-        name: 'sider',
+        name: 'siderRight',
         props: ['rightData'],
         data() {
             return {
