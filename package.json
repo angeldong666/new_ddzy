@@ -9,7 +9,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "browserslist": "^4.12.0",
+    "browserslist": "^4.16.5",
     "caniuse-lite": "^1.0.30001048",
     "fastclick": "^1.0.6",
     "vconsole": "^3.3.4",
